@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập quản lý sinh viên</title>
+</head>
+<body>
+    <script>
+        class Student{
+            constructor( ten, tuoi, toan, ly, hoa ){
+                this.ten = ten;
+                this.tuoi = tuoi;
+                this.toan = toan;
+                this.ly = ly;
+                this.hoa = hoa;
+            }
+            diemTrungBinh(){
+                return (this.toan + this.ly + this.hoa) / 3;
+            }
+            print(){
+                document.writeln("Sinh viên: "+ this.ten +" có điểm trung bình: "+ this.diemTrungBinh() +" </br> ");
+            }
+        }
+        // Nhập danh sách sinh viên
+        function inputStudent(arrStu) {
+            var test = 1;
+            var i = 0;
+            while (test == 1) {
+                ten = prompt("Nhập vào tên: ");
+                tuoi = parseInt(prompt("Nhập vào tuổi: "));
+                toan = parseFloat(prompt("Nhập vào điểm toán: "));
+                ly = parseFloat(prompt("Nhập vào điểm lý: "));
+                hoa = parseFloat(prompt("Nhập vào điểm hoá: "));
+                var student = new Student(ten,tuoi,toan,ly,hoa);
+                arrStu[i] = student;
+                i++;
+                test = prompt("Nhập 1 để tiếp tục, phím bất kỳ để dừng việc nhập !");
+            }
+        }
+        // IN danh sách sinh viên
+        function printStudent(arrStu) {
+            for (let index = 0; index < arrStu.length; index++) {
+                document.writeln("Sinh viên tên:" +arrStu[index].ten+ " có tuổi " + arrStu[index].tuoi +", điểm toán: "
+                 +arrStu[index].toan+ " điểm lý: " +arrStu[index].ly+ ", điểm hoá " +arrStu[index].hoa );
+                document.write("</br>");
+            }
+        }
+        // In DTB
+        function printDTB(arrStu) {
+           for (let index = 0; index < arrStu.length; index++) {
+               document.writeln("Sinh viên: "+ arrStu[index].ten +" có điểm trung bình là: "+ arrStu[index].diemTrungBinh() +"<br> ");
+           }
+        }
+        // Xếp loại sinh viên theo điểm trung bình
+        function sortDTB(arrStu) {
+            document.writeln("----------------------<br>Mảng sau khi sắp xếp theo điểm trung bình là:<br>");
+            document.writeln("Sinh viên giỏi bao gồm: <br>");
+            for (let index = 0; index < arrStu.length; index++)   if( arrStu[index].diemTrungBinh() >=8 ) arrStu[index].print();  document.write("</br>");
+            document.writeln("Sinh viên Khá bao gồm: <br>");
+            for (let index = 0; index < arrStu.length; index++)   if( (arrStu[index].diemTrungBinh() >=7) && (arrStu[index].diemTrungBinh() < 8) ) arrStu[index].print();  document.write("</br>");
+            document.writeln("Sinh viên trung bình bao gồm: <br>");
+            for (let index = 0; index < arrStu.length; index++)   if( arrStu[index].diemTrungBinh() < 7 ) arrStu[index].print();  document.write("</br>");
+        }
+        // Sắp xếp sinh viên theo tên
+        function sortNameStudent(arrStu) {
+            arrStu.sort(function(a,b){
+                var name1 = a.ten.toLowerCase();
+                var name2 = b.ten.toLowerCase();
+                if (name1 < name2) return -1;
+                if (name1 > name2)  return 1;
+                return 0;
+            });
+            document.writeln("----------------------<br>Mảng sau khi sắp xếp theo tên A_Z là:<br>");
+            printStudent(arrStu);
+        }
+        //Sắp xếp sinh viên theo điểm
+        function sortGradeStudent(arrStu) {
+           arrStu.sort(function(a,b) {
+               var a = a.diemTrungBinh();
+               var b = b.diemTrungBinh();
+           });
+        }
+
+        //Main
+        var arrStu = new Array();
+        // Nhập vào danh sách sinh viên
+        inputStudent(arrStu);
+        //In toàn bộ danh sách
+        printStudent(arrStu);
+        // SX DS theo tên
+        sortNameStudent(arrStu);
+        // In xếp loại sinh viên
+        sortDTB(arrStu);
+    </script>
+</body>
+</html>
